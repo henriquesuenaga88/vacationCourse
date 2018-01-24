@@ -26,7 +26,7 @@ public class CarroApi {
     )
     public ResponseEntity<Object> novo(@RequestBody CarroRequest request) {
         final Carro carro = carroService.cadastrarCarro(request);
-        return ResponseEntity.created(URI.create("/detalhes" + carro.getId())).body(carro.getId());
+        return ResponseEntity.created(URI.create("/detalhes/" + carro.getId())).body(carro.getId());
     }
 
     @DeleteMapping(path = "/remover")
@@ -50,7 +50,10 @@ public class CarroApi {
 
     @GetMapping(
             path = "/{id}",
-            produces = "application/json"
+            produces = {
+                    "application/json",
+                    "application/xml"
+            }
     )
     public CarroResponse recuperar(@PathVariable String id) {
         final Carro carro = carroService.recuperarCarro(id);
@@ -66,7 +69,7 @@ public class CarroApi {
             @RequestParam(required = false) Integer ano,
             @RequestParam(required = false) Double valor) {
         final List<Carro> carroList = carroService.recuperarPor(nome, cor, ano, valor);
-        return ResponseEntity.ok().body(carroList);
+        return ResponseEntity.ok(carroList);
     }
 
 }
