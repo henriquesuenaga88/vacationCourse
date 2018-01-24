@@ -55,7 +55,6 @@ public class CarroRepository {
         }
 
         return stream.collect(Collectors.toList());
-
     }
 
     public List<Carro> findAll() {
